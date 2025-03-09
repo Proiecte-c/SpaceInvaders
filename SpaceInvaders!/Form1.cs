@@ -17,8 +17,9 @@ namespace SpaceInvaders_
         int enemySpeed = 5;
         int score = 0;
         int enemyBulletTimer = 300;
+        Random rnd = new Random();
 
-        PictureBox[] Invaders;
+        PictureBox[] Invaders = new PictureBox[5];
 
         bool shooting;
         bool isGameOver;
@@ -48,7 +49,9 @@ namespace SpaceInvaders_
             if (enemyBulletTimer < 1)
             {
                 enemyBulletTimer = 300;
-                makeBullet("enemyBullet");
+                int invader_number = rnd.Next(Invaders.Length);
+                if (this.Controls.Contains(Invaders[invader_number]))
+                    makeBullet("enemyBullet",invader_number);
             }
             foreach (Control x in this.Controls)
             {
@@ -136,7 +139,7 @@ namespace SpaceInvaders_
             if (e.KeyCode == Keys.Space && shooting == false)
             {
                 shooting = true;
-                makeBullet("Bullet");
+                makeBullet("Bullet",0);
             }
             if (e.KeyCode == Keys.Enter && isGameOver == true)
             {
@@ -147,7 +150,6 @@ namespace SpaceInvaders_
 
         private void makeInvaders()
         {
-            Invaders = new PictureBox[5];
             int left = 0;
             for (int i = 0; i < Invaders.Length; i++)
             {
@@ -205,7 +207,7 @@ namespace SpaceInvaders_
 
         }
 
-        private void makeBullet(string bulletTag)
+        private void makeBullet(string bulletTag, int x)
         {
             PictureBox bullet = new PictureBox();
             bullet.Image = Properties.Resources.Bullet;
@@ -218,9 +220,9 @@ namespace SpaceInvaders_
             }
             else if ((string)bullet.Tag == "enemyBullet")
             {
-                bullet.Top = -100;
+                bullet.Location = Invaders[x].Location;
             }
-            bullet.SizeMode = PictureBoxSizeMode.StretchImage;
+            bullet.SizeMode = PictureBoxSizeMode.CenterImage;
             this.Controls.Add(bullet);
             bullet.BringToFront();
         }
