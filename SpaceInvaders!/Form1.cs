@@ -12,20 +12,27 @@ namespace SpaceInvaders_
 {
     public partial class Form1 : Form
     {
-        bool goLeft, goRight;
-        int playerSpeed = 12;
-        int enemySpeed = 5;
+        int playerDirection = 0;
+        int playerSpeed = 200;
+        int bulletspeed = 600;
+        int enemySpeed;
         int score = 0;
-        int enemyBulletTimer = 300;
+        int enemyBulletTimer = 2000;
+        int bosshealth = 5;
+        long tprev;
 
+        private string difficulty;
+
+        PictureBox BossEnemy;
         PictureBox[] Invaders;
 
         bool shooting;
         bool isGameOver;
-        public Form1()
+        public Form1(string selectedDifficulty)
         {
             InitializeComponent();
-            gameSetup();
+            difficulty = selectedDifficulty;
+            gamesetup();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,37 +40,27 @@ namespace SpaceInvaders_
 
         }
 
-        private void mainGameTimer(object sender, EventArgs e)
+
+        private void gameLoop(object sender, EventArgs e)
         {
-            txtScore.Text = "Score: " + score;
-            if (goLeft)
-            {
-                player.Left -= playerSpeed;
-            }
-            if (goRight)
-            {
-                player.Left += playerSpeed;
-            }
-            enemyBulletTimer -= 10;
-            if (enemyBulletTimer < 1)
-            {
-                enemyBulletTimer = 300;
-                makeBullet("enemyBullet");
-            }
+            long aux = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+            double deltaT = (aux - tprev) / 1000.0;
+
+            player.Left += Convert.ToInt32(deltaT * playerSpeed * playerDirection);
+
             foreach (Control x in this.Controls)
             {
                 if (x is PictureBox && (string)x.Tag == "Invaders")
                 {
-                    x.Left += enemySpeed;
+                    x.Left += Convert.ToInt32(enemySpeed * deltaT);
                     if (x.Left > 730)
                     {
                         x.Top += 65;
                         x.Left = -80;
                     }
                     if (x.Bounds.IntersectsWith(player.Bounds))
-                    {
                         gameOver("Game Over");
-                    }
                     foreach (Control y in this.Controls)
                     {
                         if (y is PictureBox && (string)y.Tag == "Bullet")
@@ -72,28 +69,42 @@ namespace SpaceInvaders_
                             {
                                 this.Controls.Remove(x);
                                 this.Controls.Remove(y);
-                                score += 1;
+                                score++;
+                                txtScore.Text = "score : " + score;
+                              
+                                if (score == 5)
+                                {
+                                    if (difficulty == "Hard")
+                                    {
+                                        spawnBoss();
+                                    }
+                                    else
+                                        gameOver("winner");
+                                }
                                 shooting = false;
                             }
                         }
                     }
                 }
+            
+
+            }
+            foreach (Control x in this.Controls)
+            {
                 if (x is PictureBox && (string)x.Tag == "Bullet")
                 {
-                    x.Top -= 20;
+                    x.Top -= Convert.ToInt32 (bulletspeed * deltaT);
                     if (x.Top < 15)
                     {
                         this.Controls.Remove(x);
                         shooting = false;
                     }
                 }
+
                 if (x is PictureBox && (string)x.Tag == "enemyBullet")
                 {
-                    x.Top += 20;
-                    if (x.Top > 620)
-                    {
-                        this.Controls.Remove(x);
-                    }
+                    x.Top += Convert.ToInt32 (bulletspeed * deltaT);
+                    if (x.Top > 620) this.Controls.Remove(x);
                     if (x.Bounds.IntersectsWith(player.Bounds))
                     {
                         this.Controls.Remove(x);
@@ -101,25 +112,43 @@ namespace SpaceInvaders_
                     }
                 }
             }
-            if (score > 8)
+            enemyBulletTimer -= Convert.ToInt32(deltaT * 1000);
+            if (enemyBulletTimer <= 0)
             {
-                enemySpeed = 12;
+                makeBullet("enemyBullet");
+                enemyBulletTimer = (difficulty == "Easy") ? 2000 : (difficulty == "Medium") ? 1500 : 1000;
             }
-            if (score == Invaders.Length)
+
+            if (difficulty == "Hard" && score > 5 && BossEnemy == null)
             {
-                gameOver("You Won!!!");
+                MessageBox.Show("ok");
+                spawnBoss();
             }
+
+        tprev = aux;
+           
         }
 
+        private void spawnBoss()
+        {
+            BossEnemy = new PictureBox();
+            BossEnemy.Size = new Size(60, 50);
+            BossEnemy.Image = Properties.Resources.boss;
+            BossEnemy.Top = 5;
+            BossEnemy.Tag = "Boss";
+            BossEnemy.Left = 50;
+            BossEnemy.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.Controls.Add(BossEnemy);
+        }
         private void keyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left)
             {
-                goLeft = true;
+                playerDirection = -1;
             }
             if (e.KeyCode == Keys.Right)
             {
-                goRight = true;
+                playerDirection = 1;
             }
         }
 
@@ -127,11 +156,11 @@ namespace SpaceInvaders_
         {
             if (e.KeyCode == Keys.Left)
             {
-                goLeft = false;
+                playerDirection = 0;
             }
             if (e.KeyCode == Keys.Right)
             {
-                goRight = false;
+                playerDirection = 0;
             }
             if (e.KeyCode == Keys.Space && shooting == false)
             {
@@ -141,7 +170,7 @@ namespace SpaceInvaders_
             if (e.KeyCode == Keys.Enter && isGameOver == true)
             {
                 removeAll();
-                gameSetup();
+                gamesetup();
             }
         }
 
@@ -163,16 +192,41 @@ namespace SpaceInvaders_
             }
         }
 
-        private void gameSetup()
+        private void gamesetup()
         {
             txtScore.Text = "Score: 0";
             score = 0;
             isGameOver = false;
-            enemyBulletTimer = 300;
-            enemySpeed = 5;
             shooting = false;
+            enemyBulletTimer = 300;
+            bosshealth = 5;
+
+            switch (difficulty)
+            {
+                case "Easy":
+                    enemySpeed = 200;
+                    gameTimer.Interval = 25;
+
+                    break;
+                case "Medium":
+                    enemySpeed = 400;
+                    gameTimer.Interval = 25;
+                    break;
+                case "Hard":
+                    enemySpeed = 400;
+                    gameTimer.Interval = 25;
+                    bosshealth = 5;
+                    break;
+            }
+
+
+
             makeInvaders();
+
+            tprev = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds (); 
+
             gameTimer.Start();
+
         }
         private void gameOver(string message)
         {
