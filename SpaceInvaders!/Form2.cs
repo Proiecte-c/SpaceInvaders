@@ -16,32 +16,51 @@ namespace SpaceInvaders_
         {
             InitializeComponent();
         }
-        private void StartGame(string difficulty)
+        private void StartGame(string difficulty, int invNum)
         {
             this.Hide();
-            Form1 gameForm = new Form1(difficulty);
+            Form1 gameForm = new Form1(difficulty, invNum,checkBox1.Checked,checkBox2.Checked);
             gameForm.ShowDialog();
             this.Close();
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         private void btnEasy_Click_1(object sender, EventArgs e)
         {
-            StartGame("Easy");
+            int invNum = Convert.ToInt32(textBox1.Text);
+            if (invNum < 1 || invNum > 9)
+            {
+                MessageBox.Show("Nu ai introdus un numar valid de inamici.");
+            }
+            else
+                StartGame("Easy", invNum);
         }
 
         private void btnMedium_Click_1(object sender, EventArgs e)
         {
-            StartGame("Medium");
+            int invNum = Convert.ToInt32(textBox1.Text);
+            if (invNum < 1 || invNum > 9)
+            {
+                MessageBox.Show("Nu ai introdus un numar valid de inamici.");
+            }
+            else
+                StartGame("Medium", invNum);
         }
 
         private void btnHard_Click_1(object sender, EventArgs e)
         {
-            StartGame("Hard");
+            int invNum = Convert.ToInt32(textBox1.Text);
+            if (invNum < 1 || invNum > 9)
+            {
+                MessageBox.Show("Nu ai introdus un numar valid de inamici.");
+
+            }
+            else
+                StartGame("Hard", invNum);
         }
     }
 }
