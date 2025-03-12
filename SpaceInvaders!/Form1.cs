@@ -21,11 +21,13 @@ namespace SpaceInvaders_
         int score = 0;
         int enemyBulletTimer = 2000;
         int bosshealth = 5;
+        Random rnd = new Random();
         long tprev;
 
         private string difficulty;
         private int invNum;
         private bool power;
+        private bool isPowerActive;
         private bool walls;
 
         PictureBox BossEnemy;
@@ -78,6 +80,13 @@ namespace SpaceInvaders_
                             {
                                 if ((string)x.Tag == "Invaders")
                                 {
+                                    if (power && isPowerActive == false)
+                                    {
+                                        if (rnd.Next(4) == 1)
+                                        {
+                                            makePowerUp(x.Location.X, x.Location.Y);
+                                        }
+                                    }
                                     this.Controls.Remove(x);
                                     score++;
                                 }
@@ -106,29 +115,6 @@ namespace SpaceInvaders_
                 }
 
 
-            }
-            foreach (Control x in this.Controls)
-            {
-                if (x is PictureBox && (string)x.Tag == "Bullet")
-                {
-                    x.Top -= Convert.ToInt32(bulletspeed * deltaT);
-                    if (x.Top < 15)
-                    {
-                        this.Controls.Remove(x);
-                        shooting = false;
-                    }
-                }
-
-                if (x is PictureBox && (string)x.Tag == "enemyBullet")
-                {
-                    x.Top += Convert.ToInt32(bulletspeed * deltaT);
-                    if (x.Top > 620) this.Controls.Remove(x);
-                    if (x.Bounds.IntersectsWith(player.Bounds))
-                    {
-                        this.Controls.Remove(x);
-                        gameOver("Game Over");
-                    }
-                }
             }
             foreach (Control x in this.Controls)
             {
@@ -164,6 +150,46 @@ namespace SpaceInvaders_
                     }
                 }
             }
+            foreach (Control x in this.Controls)
+            {
+                if (x is PictureBox && (string)x.Tag == "Coin")
+                {
+                    x.Top += Convert.ToInt32(wallspeed * deltaT);
+                    if(x.Top<15)
+                    {
+                        this.Controls.Remove(x);
+                    }
+                    if (x.Bounds.IntersectsWith(player.Bounds))
+                    {
+                        isPowerActive = true;
+                        this.Controls.Remove(x);
+                    }
+                }
+            }
+            foreach (Control x in this.Controls)
+            {
+                if (x is PictureBox && (string)x.Tag == "Bullet")
+                {
+                    x.Top -= Convert.ToInt32(bulletspeed * deltaT);
+                    if (x.Top < 15)
+                    {
+                        this.Controls.Remove(x);
+                        shooting = false;
+                    }
+                }
+
+                if (x is PictureBox && (string)x.Tag == "enemyBullet")
+                {
+                    x.Top += Convert.ToInt32(bulletspeed * deltaT);
+                    if (x.Top > 620)
+                        this.Controls.Remove(x);
+                    if (x.Bounds.IntersectsWith(player.Bounds))
+                    {
+                        this.Controls.Remove(x);
+                        gameOver("Game Over");
+                    }
+                }
+            }
             enemyBulletTimer -= Convert.ToInt32(deltaT * 1000);
             if (enemyBulletTimer <= 0)
             {
@@ -171,7 +197,6 @@ namespace SpaceInvaders_
                 enemyBulletTimer = (difficulty == "Easy") ? 2000 : (difficulty == "Medium") ? 1500 : 1000;
             }
             tprev = aux;
-
         }
 
         private void spawnBoss()
@@ -211,7 +236,7 @@ namespace SpaceInvaders_
             if (e.KeyCode == Keys.Space && shooting == false)
             {
                 shooting = true;
-                if (power)
+                if (isPowerActive)
                     makeSuperBullet();
                 else
                     makeBullet("Bullet");
@@ -308,7 +333,7 @@ namespace SpaceInvaders_
             {
                 if (x is PictureBox)
                 {
-                    if ((string)x.Tag == "bullet" || (string)x.Tag == "enemyBullet"|| (string)x.Tag == "Boss")
+                    if ((string)x.Tag == "bullet" || (string)x.Tag == "enemyBullet" || (string)x.Tag == "Boss")
                     {
                         this.Controls.Remove(x);
                     }
@@ -360,6 +385,18 @@ namespace SpaceInvaders_
             this.Controls.Add(Super[0]);
             this.Controls.Add(Super[1]);
             this.Controls.Add(Super[2]);
+        }
+
+        private void makePowerUp(int x, int y)
+        {
+            PictureBox coinPower = new PictureBox();
+            coinPower.Size = new Size(20, 30);
+            coinPower.Image = Properties.Resources.Coin;
+            coinPower.Tag = "Coin";
+            coinPower.Location = new Point(x, y);
+            coinPower.SizeMode = PictureBoxSizeMode.StretchImage;
+            coinPower.BringToFront();
+            this.Controls.Add(coinPower);
         }
     }
 }

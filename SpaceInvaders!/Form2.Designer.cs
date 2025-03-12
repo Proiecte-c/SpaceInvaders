@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
-            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.btnEasy = new System.Windows.Forms.Button();
             this.btnMedium = new System.Windows.Forms.Button();
             this.btnHard = new System.Windows.Forms.Button();
@@ -40,13 +39,7 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // fileSystemWatcher1
-            // 
-            this.fileSystemWatcher1.EnableRaisingEvents = true;
-            this.fileSystemWatcher1.SynchronizingObject = this;
             // 
             // btnEasy
             // 
@@ -54,7 +47,7 @@
             this.btnEasy.Location = new System.Drawing.Point(43, 123);
             this.btnEasy.Margin = new System.Windows.Forms.Padding(2);
             this.btnEasy.Name = "btnEasy";
-            this.btnEasy.Size = new System.Drawing.Size(50, 20);
+            this.btnEasy.Size = new System.Drawing.Size(60, 20);
             this.btnEasy.TabIndex = 0;
             this.btnEasy.Text = "Easy";
             this.btnEasy.UseVisualStyleBackColor = false;
@@ -66,7 +59,7 @@
             this.btnMedium.Location = new System.Drawing.Point(43, 149);
             this.btnMedium.Margin = new System.Windows.Forms.Padding(2);
             this.btnMedium.Name = "btnMedium";
-            this.btnMedium.Size = new System.Drawing.Size(50, 21);
+            this.btnMedium.Size = new System.Drawing.Size(60, 21);
             this.btnMedium.TabIndex = 1;
             this.btnMedium.Text = "Medium";
             this.btnMedium.UseVisualStyleBackColor = false;
@@ -78,7 +71,7 @@
             this.btnHard.Location = new System.Drawing.Point(43, 174);
             this.btnHard.Margin = new System.Windows.Forms.Padding(2);
             this.btnHard.Name = "btnHard";
-            this.btnHard.Size = new System.Drawing.Size(50, 25);
+            this.btnHard.Size = new System.Drawing.Size(60, 25);
             this.btnHard.TabIndex = 2;
             this.btnHard.Text = "Hard";
             this.btnHard.UseVisualStyleBackColor = false;
@@ -176,15 +169,12 @@
             this.Name = "Form2";
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.Form2_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnHard;
         private System.Windows.Forms.Button btnMedium;
