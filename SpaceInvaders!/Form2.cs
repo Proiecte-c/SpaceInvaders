@@ -19,7 +19,8 @@ namespace SpaceInvaders_
         private void StartGame(string difficulty, int invNum)
         {
             this.Hide();
-            Form1 gameForm = new Form1(difficulty, invNum,checkBox1.Checked,checkBox2.Checked);
+            string PlayerName = textBox2.Text;
+            Form1 gameForm = new Form1(difficulty, invNum,checkBox1.Checked,checkBox2.Checked, PlayerName);
             gameForm.ShowDialog();
             this.Close();
         }
