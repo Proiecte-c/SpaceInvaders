@@ -37,6 +37,7 @@ namespace SpaceInvaders_
 
         bool shooting;
         bool isGameOver;
+
         public Form1(string selectedDifficulty, int invadersNumber, bool obstacles, bool powerUp, string PlayerName)
         {
             InitializeComponent();
@@ -159,7 +160,7 @@ namespace SpaceInvaders_
                 if (x is PictureBox && (string)x.Tag == "Coin")
                 {
                     x.Top += Convert.ToInt32(wallspeed * deltaT);
-                    if(x.Top<15)
+                    if (x.Top < 15)
                     {
                         this.Controls.Remove(x);
                     }
@@ -207,7 +208,7 @@ namespace SpaceInvaders_
         {
             BossEnemy = new PictureBox();
             BossEnemy.Size = new Size(120, 100);
-            BossEnemy.Image = Properties.Resources.boss;
+            BossEnemy.Image = Properties.Resources.bossul;
             BossEnemy.Top = 5;
             BossEnemy.Tag = "Boss";
             BossEnemy.Left = 50;
@@ -247,8 +248,8 @@ namespace SpaceInvaders_
             }
             if (e.KeyCode == Keys.Enter && isGameOver == true)
             {
-                removeAll();
-                Application.Restart();
+                
+                AllTimeScore();
             }
         }
 
@@ -260,7 +261,18 @@ namespace SpaceInvaders_
             {
                 Invaders[i] = new PictureBox();
                 Invaders[i].Size = new Size(60, 50);
-                Invaders[i].Image = Properties.Resources.Invader;
+                switch (difficulty)
+                {
+                    case "Easy":
+                        Invaders[i].Image = Properties.Resources.Invader;
+                        break;
+                    case "Medium":
+                        Invaders[i].Image = Properties.Resources.green;
+                        break;
+                    case "Hard":
+                        Invaders[i].Image = Properties.Resources.red;
+                        break;
+                }
                 Invaders[i].Top = 5;
                 Invaders[i].Tag = "Invaders";
                 Invaders[i].Left = left;
@@ -325,7 +337,8 @@ namespace SpaceInvaders_
             txtScore.Text = "Score: " + score;
             txtMessage.Text = message;
             txtMessage.BorderStyle = BorderStyle.FixedSingle;
-            AllTimeScore();
+            if (message == "Game Over")
+                score = 0;
         }
 
         private void removeAll()
@@ -404,7 +417,7 @@ namespace SpaceInvaders_
             this.Controls.Add(coinPower);
         }
 
-        private void AllTimeScore ()
+        private void AllTimeScore()
         {
             this.Hide();
             Form3 gameForm = new Form3(score, Name);

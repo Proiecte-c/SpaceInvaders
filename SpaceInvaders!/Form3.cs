@@ -39,7 +39,7 @@ namespace SpaceInvaders_
 
             File.WriteAllLines(highScoreFile, highScores.Select(hs => hs.Name + " " + hs.Score));
 
-            lblHighScore.Text = "Top 5 High Scores";
+            lblHighScore.Text = "Top 5 scoruri";
 
             Label[] nameLabels = { label2, label4, label6, label8, label10 };
             Label[] scoreLabels = { label3, label5, label7, label9, label11 };
@@ -67,6 +67,16 @@ namespace SpaceInvaders_
         private void btnResetScores_Click(object sender, EventArgs e)
         {
             File.WriteAllText(highScoreFile, "0");
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -63,5 +63,10 @@ namespace SpaceInvaders_
             else
                 StartGame("Hard", invNum);
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
