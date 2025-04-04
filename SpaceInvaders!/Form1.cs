@@ -315,7 +315,7 @@ namespace SpaceInvaders_
                     break;
 
                 case "Hard":
-                    enemySpeed = 400;
+                    enemySpeed = 500;
                     gameTimer.Interval = 25;
                     bosshealth = 5;
                     break;
