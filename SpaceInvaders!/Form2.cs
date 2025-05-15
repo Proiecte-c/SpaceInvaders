@@ -5,11 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SpaceInvaders_
 {
+
     public partial class Form2 : Form
     {
         public Form2()
@@ -20,7 +22,7 @@ namespace SpaceInvaders_
         {
             this.Hide();
             string PlayerName = textBox2.Text;
-            Form1 gameForm = new Form1(difficulty, invNum,checkBox1.Checked,checkBox2.Checked, PlayerName);
+            Form1 gameForm = new Form1(difficulty, invNum, checkBox1.Checked, checkBox2.Checked, PlayerName);
             gameForm.ShowDialog();
             this.Close();
         }
@@ -32,10 +34,26 @@ namespace SpaceInvaders_
 
         private void btnEasy_Click_1(object sender, EventArgs e)
         {
+            if (textBox2.Text == "")
+            {
+                MessageBox.Show("Nu ai completat caseta de nume");
+                return;
+            }
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Nu ai introdus un numar de inamici");
+                return;
+            }
+            if (Regex.IsMatch(textBox1.Text, @"^[a-zA-Z!@#$%^&*()<>?/\|=+%-]+$"))
+            {
+                MessageBox.Show("Trebuie sa introduci un numar intre 1 si 9");
+                return;
+            }
             int invNum = Convert.ToInt32(textBox1.Text);
             if (invNum < 1 || invNum > 9)
             {
                 MessageBox.Show("Nu ai introdus un numar valid de inamici.");
+                return;
             }
             else
                 StartGame("Easy", invNum);
@@ -43,6 +61,21 @@ namespace SpaceInvaders_
 
         private void btnMedium_Click_1(object sender, EventArgs e)
         {
+            if (textBox2.Text == "")
+            {
+                MessageBox.Show("Nu ai completat caseta de nume");
+                return;
+            }
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Nu ai introdus un numar de inamici");
+                return;
+            }
+            if (Regex.IsMatch(textBox1.Text, @"^[a-zA-Z!@#$%^&*()<>?/\|=+%-]+$"))
+            {
+                MessageBox.Show("Trebuie sa introduci un numar intre 1 si 9");
+                return;
+            }
             int invNum = Convert.ToInt32(textBox1.Text);
             if (invNum < 1 || invNum > 9)
             {
@@ -54,6 +87,21 @@ namespace SpaceInvaders_
 
         private void btnHard_Click_1(object sender, EventArgs e)
         {
+            if (textBox2.Text == "")
+            {
+                MessageBox.Show("Nu ai completat caseta de nume");
+                return;
+            }
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Nu ai introdus un numar de inamici");
+                return;
+            }
+            if (Regex.IsMatch(textBox1.Text, @"^[a-zA-Z!@#$%^&*()<>?/\|=+%-]+$"))
+            {
+                MessageBox.Show("Trebuie sa introduci un numar intre 1 si 9");
+                return;
+            }
             int invNum = Convert.ToInt32(textBox1.Text);
             if (invNum < 1 || invNum > 9)
             {
@@ -64,7 +112,13 @@ namespace SpaceInvaders_
                 StartGame("Hard", invNum);
         }
 
+
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
         {
 
         }

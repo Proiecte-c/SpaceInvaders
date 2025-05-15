@@ -22,8 +22,6 @@ namespace SpaceInvaders_
             SaveHighScore (score, Name);
         }
 
-
-
         private void SaveHighScore(int scores, string Name)
         {
             List<(string Name, int Score)> highScores = File.Exists(highScoreFile)
@@ -34,12 +32,25 @@ namespace SpaceInvaders_
              .ToList()
          : new List<(string, int)>();
 
-            highScores.Add((Name, scores));
+            var existingIndex = highScores.FindIndex(entry => entry.Name.Equals(Name, StringComparison.OrdinalIgnoreCase));
+
+            if (existingIndex != -1)
+            {
+                if (scores > highScores[existingIndex].Score)
+                {
+                    highScores[existingIndex] = (Name, scores);
+                }
+            }
+            else
+            {
+                highScores.Add((Name, scores));
+            }
+
             highScores = highScores.OrderByDescending(entry => entry.Score).Take(5).ToList();
 
             File.WriteAllLines(highScoreFile, highScores.Select(hs => hs.Name + " " + hs.Score));
 
-            lblHighScore.Text = "Top 5 scoruri";
+            lblHighScore.Text = "Top 5 High Scores";
 
             Label[] nameLabels = { label2, label4, label6, label8, label10 };
             Label[] scoreLabels = { label3, label5, label7, label9, label11 };
@@ -66,7 +77,7 @@ namespace SpaceInvaders_
 
         private void btnResetScores_Click(object sender, EventArgs e)
         {
-            File.WriteAllText(highScoreFile, "0");
+            File.WriteAllText(highScoreFile, "");
         }
 
         private void btnReset_Click(object sender, EventArgs e)

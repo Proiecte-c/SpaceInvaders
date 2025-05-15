@@ -337,8 +337,6 @@ namespace SpaceInvaders_
             txtScore.Text = "Score: " + score;
             txtMessage.Text = message;
             txtMessage.BorderStyle = BorderStyle.FixedSingle;
-            if (message == "Game Over")
-                score = 0;
         }
 
         private void removeAll()
