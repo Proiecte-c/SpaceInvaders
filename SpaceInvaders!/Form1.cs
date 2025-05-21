@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -38,6 +39,9 @@ namespace SpaceInvaders_
         bool shooting;
         bool isGameOver;
 
+        private SoundPlayer shootSound;
+        private SoundPlayer gameoverSound;
+
         public Form1(string selectedDifficulty, int invadersNumber, bool obstacles, bool powerUp, string PlayerName)
         {
             InitializeComponent();
@@ -47,7 +51,8 @@ namespace SpaceInvaders_
             invNum = invadersNumber;
             power = powerUp;
             walls = obstacles;
-
+            shootSound = new SoundPlayer("C:\\Users\\vladf\\source\\repos\\Ahbreh\\SpaceInvaders-\\SpaceInvaders!\\Resources\\pew-pew.wav");
+            gameoverSound = new SoundPlayer("C:\\Users\\vladf\\source\\repos\\Ahbreh\\SpaceInvaders-\\SpaceInvaders!\\Resources\\game over.wav");
             gamesetup();
         }
 
@@ -248,7 +253,7 @@ namespace SpaceInvaders_
             }
             if (e.KeyCode == Keys.Enter && isGameOver == true)
             {
-                
+
                 AllTimeScore();
             }
         }
@@ -300,18 +305,20 @@ namespace SpaceInvaders_
             isGameOver = false;
             shooting = false;
             enemyBulletTimer = 300;
-            bosshealth = 5;
+            bosshealth = 2;
 
             switch (difficulty)
             {
                 case "Easy":
                     enemySpeed = 200;
                     gameTimer.Interval = 25;
+                    bosshealth = 2;
 
                     break;
                 case "Medium":
                     enemySpeed = 400;
                     gameTimer.Interval = 25;
+                    bosshealth = 3;
                     break;
 
                 case "Hard":
@@ -336,6 +343,8 @@ namespace SpaceInvaders_
             gameTimer.Stop();
             txtScore.Text = "Score: " + score;
             txtMessage.Text = message;
+            if(message=="Game Over")
+                gameoverSound.Play();
             txtMessage.BorderStyle = BorderStyle.FixedSingle;
         }
 
@@ -380,6 +389,7 @@ namespace SpaceInvaders_
             bullet.SizeMode = PictureBoxSizeMode.CenterImage;
             this.Controls.Add(bullet);
             bullet.BringToFront();
+            shootSound.Play();
         }
 
         private void makeSuperBullet()
@@ -401,6 +411,7 @@ namespace SpaceInvaders_
             this.Controls.Add(Super[0]);
             this.Controls.Add(Super[1]);
             this.Controls.Add(Super[2]);
+            shootSound.Play();
         }
 
         private void makePowerUp(int x, int y)

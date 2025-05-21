@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,13 +16,18 @@ namespace SpaceInvaders_
 
     public partial class Form2 : Form
     {
+        private SoundPlayer gameSound;
+
         public Form2()
         {
             InitializeComponent();
+
+            gameSound=new SoundPlayer("C:\\Users\\vladf\\source\\repos\\Ahbreh\\SpaceInvaders-\\SpaceInvaders!\\Resources\\game music.wav");
         }
         private void StartGame(string difficulty, int invNum)
         {
             this.Hide();
+            gameSound.Stop();
             string PlayerName = textBox2.Text;
             Form1 gameForm = new Form1(difficulty, invNum, checkBox1.Checked, checkBox2.Checked, PlayerName);
             gameForm.ShowDialog();
@@ -29,7 +36,7 @@ namespace SpaceInvaders_
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            gameSound.PlayLooping();
         }
 
         private void btnEasy_Click_1(object sender, EventArgs e)

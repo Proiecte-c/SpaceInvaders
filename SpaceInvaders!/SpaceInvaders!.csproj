@@ -116,9 +116,13 @@
   <ItemGroup>
     <Content Include="Resources\boss.png" />
     <None Include="Resources\bossul.png" />
+    <Content Include="Resources\end screen music.wav" />
+    <Content Include="Resources\game music.wav" />
+    <Content Include="Resources\game over.wav" />
     <Content Include="Resources\green.png" />
     <None Include="Resources\red1.png" />
     <None Include="Resources\green1.png" />
+    <Content Include="Resources\pew-pew.wav" />
     <Content Include="Resources\red.png" />
     <None Include="Resources\Coin.png" />
   </ItemGroup>

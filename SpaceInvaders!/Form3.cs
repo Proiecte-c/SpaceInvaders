@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Media;
 using System.Windows.Forms;
 using System.IO;
 
@@ -13,12 +14,14 @@ namespace SpaceInvaders_
 {
     public partial class Form3 : Form
     {
+        private SoundPlayer endMusic;
         private string highScoreFile = "highscore.txt";
         private TableLayoutPanel tableLayoutPanel = new TableLayoutPanel();
 
         public Form3(int score, string Name)
         {
             InitializeComponent();
+            endMusic = new SoundPlayer("C:\\Users\\vladf\\source\\repos\\Ahbreh\\SpaceInvaders-\\SpaceInvaders!\\Resources\\end screen music.wav");
             SaveHighScore (score, Name);
         }
 
@@ -72,7 +75,7 @@ namespace SpaceInvaders_
 
         private void Form3_Load(object sender, EventArgs e)
         {
-
+            endMusic.PlayLooping();
         }
 
         private void btnResetScores_Click(object sender, EventArgs e)
@@ -82,11 +85,13 @@ namespace SpaceInvaders_
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            endMusic.Stop();
             Application.Restart();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            endMusic.Stop();
             Application.Exit();
         }
     }
