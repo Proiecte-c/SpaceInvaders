@@ -51,7 +51,11 @@ namespace SpaceInvaders_
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
 
-            scale = this.Width / 730f;
+            scale = 1.7f;
+
+            wallspeed = Convert.ToInt32 (wallspeed *scale);
+            bulletspeed = Convert.ToInt32(bulletspeed * scale);
+
 
             Name = PlayerName;
             difficulty = selectedDifficulty;
@@ -82,10 +86,10 @@ namespace SpaceInvaders_
                 if (x is PictureBox && ((string)x.Tag == "Invaders" || (string)x.Tag == "Boss"))
                 {
                     x.Left += Convert.ToInt32(enemySpeed * deltaT);
-                    if (x.Left > 730)
+                    if (x.Left > 730 * scale)
                     {
-                        x.Top += 65;
-                        x.Left = -80;
+                        x.Top += Convert.ToInt32 (65 * scale);
+                        x.Left = Convert.ToInt32(-80 * scale);
                     }
                     if (x.Bounds.IntersectsWith(player.Bounds))
                         gameOver("Game Over");
@@ -141,7 +145,7 @@ namespace SpaceInvaders_
                     if (wallDirection == 1)
                     {
                         x.Left += Convert.ToInt32(wallspeed * deltaT);
-                        if (x.Right > 735)
+                        if (x.Right > 735 * scale)
                         {
                             wallDirection = 0;
                         }
@@ -149,7 +153,7 @@ namespace SpaceInvaders_
                     else
                     {
                         x.Left -= Convert.ToInt32(wallspeed * deltaT);
-                        if (x.Left < 15)
+                        if (x.Left < 15 * scale)
                         {
                             wallDirection = 1;
                         }
@@ -172,7 +176,7 @@ namespace SpaceInvaders_
                 if (x is PictureBox && (string)x.Tag == "Coin")
                 {
                     x.Top += Convert.ToInt32(wallspeed * deltaT);
-                    if (x.Top < 15)
+                    if (x.Top < 15 * scale)
                     {
                         this.Controls.Remove(x);
                     }
@@ -188,7 +192,7 @@ namespace SpaceInvaders_
                 if (x is PictureBox && (string)x.Tag == "Bullet")
                 {
                     x.Top -= Convert.ToInt32(bulletspeed * deltaT);
-                    if (x.Top < 15)
+                    if (x.Top < 15 * scale)
                     {
                         this.Controls.Remove(x);
                         shooting = false;
@@ -198,7 +202,7 @@ namespace SpaceInvaders_
                 if (x is PictureBox && (string)x.Tag == "enemyBullet")
                 {
                     x.Top += Convert.ToInt32(bulletspeed * deltaT);
-                    if (x.Top > 620)
+                    if (x.Top > 620 * scale)
                         this.Controls.Remove(x);
                     if (x.Bounds.IntersectsWith(player.Bounds))
                     {
@@ -219,11 +223,11 @@ namespace SpaceInvaders_
         private void spawnBoss()
         {
             BossEnemy = new PictureBox();
-            BossEnemy.Size = new Size(120, 100);
+            BossEnemy.Size = new Size(Convert.ToInt32 (120 * scale), Convert.ToInt32 (100 * scale)) ;
             BossEnemy.Image = Properties.Resources.bossul;
-            BossEnemy.Top = 5;
+            BossEnemy.Top = Convert.ToInt32 (5 * scale);
             BossEnemy.Tag = "Boss";
-            BossEnemy.Left = 50;
+            BossEnemy.Left = Convert.ToInt32 (50 * scale);
             BossEnemy.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(BossEnemy);
             BossEnemy.BringToFront();
@@ -272,7 +276,7 @@ namespace SpaceInvaders_
             for (int i = 0; i < Invaders.Length; i++)
             {
                 Invaders[i] = new PictureBox();
-                Invaders[i].Size = new Size(60, 50);
+                Invaders[i].Size = new Size(Convert.ToInt32 (60 * scale), Convert.ToInt32 (50 * scale));
                 switch (difficulty)
                 {
                     case "Easy":
@@ -285,12 +289,12 @@ namespace SpaceInvaders_
                         Invaders[i].Image = Properties.Resources.red;
                         break;
                 }
-                Invaders[i].Top = 5;
+                Invaders[i].Top = Convert.ToInt32 (5 * scale);
                 Invaders[i].Tag = "Invaders";
                 Invaders[i].Left = left;
                 Invaders[i].SizeMode = PictureBoxSizeMode.StretchImage;
                 this.Controls.Add(Invaders[i]);
-                left = left - 80;
+                left = left - Convert.ToInt32(80 * scale);
             }
         }
 
@@ -298,8 +302,8 @@ namespace SpaceInvaders_
         {
             Label wall = new Label();
             wall.AutoSize = false;
-            wall.Size = new Size(237, 15);
-            wall.Location = new Point(330, 343);
+            wall.Size = new Size(Convert.ToInt32(237 * scale), Convert.ToInt32(15 * scale));
+            wall.Location = new Point(Convert.ToInt32(330 * scale), Convert.ToInt32(343 * scale));
             wall.BackColor = Color.White;
             wall.Tag = "Wall";
             this.Controls.Add(wall);
@@ -317,19 +321,19 @@ namespace SpaceInvaders_
             switch (difficulty)
             {
                 case "Easy":
-                    enemySpeed = 200;
+                    enemySpeed = Convert.ToInt32(200 * scale);
                     gameTimer.Interval = 25;
                     bosshealth = 2;
 
                     break;
                 case "Medium":
-                    enemySpeed = 400;
+                    enemySpeed = Convert.ToInt32(400 * scale);
                     gameTimer.Interval = 25;
                     bosshealth = 3;
                     break;
 
                 case "Hard":
-                    enemySpeed = 500;
+                    enemySpeed = Convert.ToInt32(500 * scale);
                     gameTimer.Interval = 25;
                     bosshealth = 5;
                     break;
@@ -382,16 +386,16 @@ namespace SpaceInvaders_
         {
             PictureBox bullet = new PictureBox();
             bullet.Image = Properties.Resources.Bullet;
-            bullet.Size = new Size(10, 20);
+            bullet.Size = new Size(Convert.ToInt32(10 * scale), Convert.ToInt32(15 * scale));
             bullet.Tag = bulletTag;
             bullet.Left = player.Left + player.Width / 2;
             if ((string)bullet.Tag == "Bullet")
             {
-                bullet.Top = player.Top - 20;
+                bullet.Top = player.Top - Convert.ToInt32(20 * scale);
             }
             else if ((string)bullet.Tag == "enemyBullet")
             {
-                bullet.Top = -100;
+                bullet.Top = -Convert.ToInt32(100 * scale);
             }
             bullet.SizeMode = PictureBoxSizeMode.CenterImage;
             this.Controls.Add(bullet);
@@ -406,15 +410,15 @@ namespace SpaceInvaders_
             {
                 Super[i] = new PictureBox();
                 Super[i].Image = Properties.Resources.Bullet;
-                Super[i].Size = new Size(10, 20);
+                Super[i].Size = new Size(Convert.ToInt32(10 * scale), Convert.ToInt32(20 * scale));
                 Super[i].Tag = "Bullet";
-                Super[i].Top = player.Top - 20;
+                Super[i].Top = player.Top - Convert.ToInt32(20 * scale);
                 Super[i].BringToFront();
                 Super[i].SizeMode = PictureBoxSizeMode.CenterImage;
             }
-            Super[0].Left = player.Left + player.Width / 2 - 25;
+            Super[0].Left = player.Left + player.Width / 2 - Convert.ToInt32(25 * scale);
             Super[1].Left = player.Left + player.Width / 2;
-            Super[2].Left = player.Left + player.Width / 2 + 25;
+            Super[2].Left = player.Left + player.Width / 2 + Convert.ToInt32(25 * scale);
             this.Controls.Add(Super[0]);
             this.Controls.Add(Super[1]);
             this.Controls.Add(Super[2]);
@@ -424,7 +428,7 @@ namespace SpaceInvaders_
         private void makePowerUp(int x, int y)
         {
             PictureBox coinPower = new PictureBox();
-            coinPower.Size = new Size(20, 30);
+            coinPower.Size = new Size(Convert.ToInt32(20 * scale), Convert.ToInt32(30 * scale));
             coinPower.Image = Properties.Resources.Coin;
             coinPower.Tag = "Coin";
             coinPower.Location = new Point(x, y);

@@ -38,15 +38,16 @@
             // 
             // txtScore
             // 
+            this.txtScore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtScore.AutoSize = true;
             this.txtScore.BackColor = System.Drawing.Color.Transparent;
             this.txtScore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtScore.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.txtScore.Location = new System.Drawing.Point(12, 519);
+            this.txtScore.Location = new System.Drawing.Point(14, 649);
             this.txtScore.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.txtScore.Name = "txtScore";
-            this.txtScore.Size = new System.Drawing.Size(119, 31);
+            this.txtScore.Size = new System.Drawing.Size(142, 35);
             this.txtScore.TabIndex = 1;
             this.txtScore.Text = "Score : 0";
             // 
@@ -60,20 +61,21 @@
             this.txtMessage.AutoSize = true;
             this.txtMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMessage.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.txtMessage.Location = new System.Drawing.Point(359, 284);
+            this.txtMessage.Location = new System.Drawing.Point(404, 355);
             this.txtMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(0, 42);
+            this.txtMessage.Size = new System.Drawing.Size(0, 52);
             this.txtMessage.TabIndex = 2;
             // 
             // player
             // 
+            this.player.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.player.BackColor = System.Drawing.Color.Transparent;
             this.player.Image = global::SpaceInvaders_.Properties.Resources.Spaceship;
-            this.player.Location = new System.Drawing.Point(424, 476);
-            this.player.Margin = new System.Windows.Forms.Padding(4);
+            this.player.Location = new System.Drawing.Point(477, 595);
+            this.player.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(80, 69);
+            this.player.Size = new System.Drawing.Size(90, 86);
             this.player.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.player.TabIndex = 0;
             this.player.TabStop = false;
@@ -81,15 +83,15 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(979, 620);
+            this.ClientSize = new System.Drawing.Size(1101, 775);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.txtScore);
             this.Controls.Add(this.player);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Space Invaders";
