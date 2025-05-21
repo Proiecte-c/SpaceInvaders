@@ -36,7 +36,7 @@ namespace SpaceInvaders_
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            gameSound.PlayLooping();
+           /// gameSound.PlayLooping();
         }
 
         private void btnEasy_Click_1(object sender, EventArgs e)

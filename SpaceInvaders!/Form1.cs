@@ -24,6 +24,7 @@ namespace SpaceInvaders_
         int bosshealth = 5;
         Random rnd = new Random();
         long tprev;
+        float scale;
 
         private string difficulty;
         private string Name;
@@ -45,6 +46,12 @@ namespace SpaceInvaders_
         public Form1(string selectedDifficulty, int invadersNumber, bool obstacles, bool powerUp, string PlayerName)
         {
             InitializeComponent();
+
+            this.TopMost = true;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+
+            scale = this.Width / 730f;
 
             Name = PlayerName;
             difficulty = selectedDifficulty;
@@ -344,7 +351,7 @@ namespace SpaceInvaders_
             txtScore.Text = "Score: " + score;
             txtMessage.Text = message;
             if(message=="Game Over")
-                gameoverSound.Play();
+               /// gameoverSound.Play();
             txtMessage.BorderStyle = BorderStyle.FixedSingle;
         }
 
@@ -389,7 +396,7 @@ namespace SpaceInvaders_
             bullet.SizeMode = PictureBoxSizeMode.CenterImage;
             this.Controls.Add(bullet);
             bullet.BringToFront();
-            shootSound.Play();
+           /// shootSound.Play();
         }
 
         private void makeSuperBullet()

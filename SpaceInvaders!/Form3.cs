@@ -75,7 +75,7 @@ namespace SpaceInvaders_
 
         private void Form3_Load(object sender, EventArgs e)
         {
-            endMusic.PlayLooping();
+           // endMusic.PlayLooping();
         }
 
         private void btnResetScores_Click(object sender, EventArgs e)
