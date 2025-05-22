@@ -117,6 +117,7 @@
     <Content Include="Resources\boss.png" />
     <None Include="Resources\bossul.png" />
     <Content Include="Resources\end screen music.wav" />
+    <None Include="Resources\enemyBullet1.png" />
     <Content Include="Resources\game music.wav" />
     <Content Include="Resources\game over.wav" />
     <Content Include="Resources\green.png" />

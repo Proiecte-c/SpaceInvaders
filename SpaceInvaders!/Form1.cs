@@ -355,7 +355,8 @@ namespace SpaceInvaders_
             txtScore.Text = "Score: " + score;
             txtMessage.Text = message;
             if(message=="Game Over")
-               /// gameoverSound.Play();
+            gameoverSound.Play();
+            txtMessage.Location=new Point();
             txtMessage.BorderStyle = BorderStyle.FixedSingle;
         }
 
@@ -385,22 +386,23 @@ namespace SpaceInvaders_
         private void makeBullet(string bulletTag)
         {
             PictureBox bullet = new PictureBox();
-            bullet.Image = Properties.Resources.Bullet;
             bullet.Size = new Size(Convert.ToInt32(10 * scale), Convert.ToInt32(15 * scale));
             bullet.Tag = bulletTag;
             bullet.Left = player.Left + player.Width / 2;
             if ((string)bullet.Tag == "Bullet")
             {
+                bullet.Image = Properties.Resources.Bullet;
                 bullet.Top = player.Top - Convert.ToInt32(20 * scale);
             }
             else if ((string)bullet.Tag == "enemyBullet")
             {
+                bullet.Image = Properties.Resources.enemyBullet2;
                 bullet.Top = -Convert.ToInt32(100 * scale);
             }
             bullet.SizeMode = PictureBoxSizeMode.CenterImage;
             this.Controls.Add(bullet);
             bullet.BringToFront();
-           /// shootSound.Play();
+           shootSound.Play();
         }
 
         private void makeSuperBullet()

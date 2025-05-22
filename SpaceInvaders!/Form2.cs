@@ -36,7 +36,7 @@ namespace SpaceInvaders_
 
         private void Form2_Load(object sender, EventArgs e)
         {
-           /// gameSound.PlayLooping();
+           gameSound.PlayLooping();
         }
 
         private void btnEasy_Click_1(object sender, EventArgs e)
@@ -49,6 +49,11 @@ namespace SpaceInvaders_
             if (textBox1.Text == "")
             {
                 MessageBox.Show("Nu ai introdus un numar de inamici");
+                return;
+            }
+            if (Regex.IsMatch(textBox2.Text, @"^[0-9!@#$%^&*()<>?/\|=+%-]+$"))
+            {
+                MessageBox.Show("Trebuie sa introduci un nume valid");
                 return;
             }
             if (Regex.IsMatch(textBox1.Text, @"^[a-zA-Z!@#$%^&*()<>?/\|=+%-]+$"))
@@ -78,6 +83,11 @@ namespace SpaceInvaders_
                 MessageBox.Show("Nu ai introdus un numar de inamici");
                 return;
             }
+            if (Regex.IsMatch(textBox2.Text, @"^[0-9!@#$%^&*()<>?/\|=+%-]+$"))
+            {
+                MessageBox.Show("Trebuie sa introduci un nume valid");
+                return;
+            }
             if (Regex.IsMatch(textBox1.Text, @"^[a-zA-Z!@#$%^&*()<>?/\|=+%-]+$"))
             {
                 MessageBox.Show("Trebuie sa introduci un numar intre 1 si 9");
@@ -102,6 +112,11 @@ namespace SpaceInvaders_
             if (textBox1.Text == "")
             {
                 MessageBox.Show("Nu ai introdus un numar de inamici");
+                return;
+            }
+            if (Regex.IsMatch(textBox2.Text, @"^[0-9!@#$%^&*()<>?/\|=+%-]+$"))
+            {
+                MessageBox.Show("Trebuie sa introduci un nume valid");
                 return;
             }
             if (Regex.IsMatch(textBox1.Text, @"^[a-zA-Z!@#$%^&*()<>?/\|=+%-]+$"))

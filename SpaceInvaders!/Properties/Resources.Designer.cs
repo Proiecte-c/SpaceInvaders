@@ -123,6 +123,26 @@ namespace SpaceInvaders_.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap enemyBullet1 {
+            get {
+                object obj = ResourceManager.GetObject("enemyBullet1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap enemyBullet2 {
+            get {
+                object obj = ResourceManager.GetObject("enemyBullet2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap green {
             get {
                 object obj = ResourceManager.GetObject("green", resourceCulture);
